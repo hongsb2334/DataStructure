@@ -84,6 +84,15 @@ public:
         }
     }
 
+    //리스트 중간 삭제, 각 연결리스트를 식별할 무언가를 값으로 넘겨서 삭제할 노드를 찾아야 함
+    //Todo: 여기 이어서 구현
+    void Delete() const
+    {
+        Node<T>* deleteNode = current;
+        current = current->next;
+        delete deleteNode;
+    }
+
     //Getter
     size_t Count() const { return count; }
     bool Empty() const { return head = nullptr; }
