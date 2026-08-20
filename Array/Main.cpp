@@ -72,7 +72,7 @@ int main()
 	//정적 배열
 	//size가 const가 아니면 size가 바뀔 수 있기 때문에 에러 발생함.
 	const int size = 5;
-	int array[size] = {};
+	//int array[size] = {};
 
 	array[0] = 10;
 	array[1] = 20;

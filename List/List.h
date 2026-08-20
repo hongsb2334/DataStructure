@@ -1,10 +1,97 @@
 ﻿#pragma once
 #include <iostream>
 #include <cassert>
+
+//리스트 이터레이터
+template <typename T>
+class ListIterator
+{
+public:
+    using PointerType = T*;
+    using ReferenceType = T&;
+
+public:
+    ListIterator(PointerType pointer) : pointer(pointer)
+    {
+
+    }
+
+    //연산자 오버로딩(포인터 관련)
+    ListIterator& operator++()
+    {
+        ++pointer;
+        return *this;
+    }
+
+    //연산자 오버로딩(포인터 관련)
+    ListIterator& operator--()
+    {
+        --pointer;
+        return *this;
+    }
+
+    //후위증가
+    ListIterator& operator++(int)
+    {
+        //임시 저장
+        ListIterator temp = *this;
+        ++(*this);
+        return temp;
+    }
+
+    //후위감소
+    ListIterator& operator--(int)
+    {
+        //임시 저장
+        ListIterator temp = *this;
+        --(*this);
+        return temp;
+    }
+
+    ReferenceType operator[](int index) const
+    {
+        return (pointer + index);
+    }
+
+    ReferenceType operator->() const
+    {
+        return pointer;
+    }
+
+    ReferenceType operator*() const
+    {
+        return *pointer;
+    }
+
+    bool operator==(const ListIterator& other) const
+    {
+        return pointer == other.pointer;
+    }
+
+    bool operator!=(const ListIterator& other) const
+    {
+        return pointer != other.pointer;
+        //return !(this == other); 이렇게 해도 됨
+    }
+
+
+private:
+    PointerType pointer = nullptr;
+};
+
+
+
 // 템플릿 동적 배열 클래스
 template<typename T>
 class List
 {
+
+public:
+
+    //이터레이터 설정
+    using Iterator = ListIterator<T>;
+    using ConstIterator = ListIterator<const T>;
+
 
 public:
     List()
@@ -172,10 +259,28 @@ public:
     bool IsEmpty() const { return size == 0; }
 
     //범위 기반 루프 사용가능하도록 추가
-    T* begin() { return data; }
-    T* end() { return data + size; }
+    //T* begin() { return data; }
+    //T* end() { return data + size; }
 
+    Iterator begin()
+    {
+        return Iterator(data);
+    }
 
+    Iterator end()
+    {
+        return Iterator(data ? data + size : nullptr);
+    }
+
+    ConstIterator begin() const
+    {
+        return ConstIterator(data);
+    }
+
+    ConstIterator end() const
+    {
+        return ConstIterator(data ? data + size : nullptr);
+    }
 
     
 private:
@@ -200,7 +305,7 @@ private:
         // 5. 저장공간 크기값 업데이트
         capacity = newCapacity;
     }
-
+    
 private:
     //내부에서 관리하는 배열(메모리 주소)
     T* data = nullptr;
