@@ -4,5 +4,6 @@
   </Configurations>
   <Project Path="Array/Array.vcxproj" Id="7a056d62-11c8-4596-8c3a-dd332770d82a" />
   <Project Path="List/List.vcxproj" Id="b2eb05c5-49ee-40e8-8f22-2aa8f0d1099a" />
+  <Project Path="SingleLinkedList/SingleLinkedList.vcxproj" Id="412d5241-9489-4028-b255-a1b3d7de024b" />
   <Project Path="Test/Test.vcxproj" Id="bf3dc82f-5d20-4e95-92d9-ee7060960818" />
 </Solution>
